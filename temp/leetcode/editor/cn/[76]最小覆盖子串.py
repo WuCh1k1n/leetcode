@@ -1,0 +1,58 @@
+# 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。 
+# 
+#  注意：如果 s 中存在这样的子串，我们保证它是唯一的答案。 
+# 
+#  
+# 
+#  示例 1： 
+# 
+#  
+# 输入：s = "ADOBECODEBANC", t = "ABC"
+# 输出："BANC"
+#  
+# 
+#  示例 2： 
+# 
+#  
+# 输入：s = "a", t = "a"
+# 输出："a"
+#  
+# 
+#  
+# 
+#  提示： 
+# 
+#  
+#  1 <= s.length, t.length <= 105 
+#  s 和 t 由英文字母组成 
+#  
+# 
+#  
+# 进阶：你能设计一个在 o(n) 时间内解决此问题的算法吗？ Related Topics 哈希表 双指针 字符串 Sliding Window 
+#  👍 950 👎 0
+
+
+# leetcode submit region begin(Prohibit modification and deletion)
+import collections
+
+
+class Solution(object):
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        need, missing = collections.Counter(t), len(t)
+        l = start = end = 0
+        for r, c in enumerate(s, 1):
+            missing -= need[c] > 0
+            need[c] -= 1
+            if not missing:
+                while l < r and need[s[l]] < 0:
+                    need[s[l]] += 1
+                    l += 1
+                if not end or r - l < end - start:
+                    start, end = l, r
+        return s[start:end]
+# leetcode submit region end(Prohibit modification and deletion)
