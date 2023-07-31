@@ -44,6 +44,7 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import collections
+from typing import List
 
 
 class Solution:
@@ -68,3 +69,7 @@ class Solution:
                     q.append(nxt)
         return visited == numCourses
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().canFinish(2, [[1, 0]])
