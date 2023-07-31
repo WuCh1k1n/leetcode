@@ -37,12 +37,7 @@ import collections
 
 
 class Solution(object):
-    def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
+    def minWindow(self, s: int, t: str) -> str:
         need, missing = collections.Counter(t), len(t)
         l = start = end = 0
         for r, c in enumerate(s, 1):
@@ -56,3 +51,7 @@ class Solution(object):
                     start, end = l, r
         return s[start:end]
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().minWindow("ADOBECODEBANC", "ABC")
