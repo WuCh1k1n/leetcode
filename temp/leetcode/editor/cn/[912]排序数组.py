@@ -34,25 +34,29 @@ import random
 
 
 class Solution:
-    def randomized_partition(self, nums, l, r):
-        pivot = random.randint(l, r)
-        nums[pivot], nums[r] = nums[r], nums[pivot]
-        counter = l
-        for i in range(l, r):
-            if nums[i] < nums[r]:
-                nums[i], nums[counter] = nums[counter], nums[i]
-                counter += 1
-        nums[counter], nums[r] = nums[r], nums[counter]
-        return counter
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.quickSort(nums, 0, len(nums) - 1)
+        return nums
 
-    def randomized_quicksort(self, nums, l, r):
+    def quickSort(self, nums: List[int], l: int, r: int) -> None:
+        def randomized_partition(nums: List[int]) -> int:
+            pivot, counter = random.randint(l, r), l
+            nums[pivot], nums[r] = nums[r], nums[pivot]
+            for i in range(l, r):
+                if nums[i] < nums[r]:
+                    nums[i], nums[counter] = nums[counter], nums[i]
+                    counter += 1
+            nums[counter], nums[r] = nums[r], nums[counter]
+            return counter
+
         if l > r:
             return
-        mid = self.randomized_partition(nums, l, r)
-        self.randomized_quicksort(nums, l, mid - 1)
-        self.randomized_quicksort(nums, mid + 1, r)
-
-    def sortArray(self, nums: List[int]) -> List[int]:
-        self.randomized_quicksort(nums, 0, len(nums) - 1)
-        return nums
+        pivot = randomized_partition(nums)
+        l_upper = r_lower = pivot
+        while l_upper > 0 and nums[l_upper] == nums[l_upper - 1]:
+            l_upper -= 1
+        self.quickSort(nums, l, l_upper - 1)
+        while r_lower < r and nums[r_lower] == nums[r_lower + 1]:
+            r_lower += 1
+        self.quickSort(nums, pivot + 1, r)
 # leetcode submit region end(Prohibit modification and deletion)
