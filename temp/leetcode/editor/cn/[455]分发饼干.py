@@ -40,23 +40,19 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution(object):
-    def findContentChildren(self, g, s):
-        """
-        :type g: List[int]
-        :type s: List[int]
-        :rtype: int
-        """
-        ans = 0
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
         g.sort()
         s.sort()
-        i, j = 0, 0
+        i = j = 0
+        res = 0
         while i < len(g) and j < len(s):
-            if g[i] <= s[j]:
-                ans += 1
+            if s[j] >= g[i]:
+                res += 1
                 i += 1
-                j += 1
-            else:
-                j += 1
-        return ans
+            j += 1
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
