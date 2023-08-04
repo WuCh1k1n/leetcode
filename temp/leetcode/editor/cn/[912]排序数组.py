@@ -30,33 +30,39 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-import random
+from typing import List
 
 
 class Solution:
+    def max_heapify(self, heap, root, heap_len):
+        p = root
+        while p * 2 + 1 < heap_len:
+            l, r = p * 2 + 1, p * 2 + 2
+            if heap_len <= r or heap[r] < heap[l]:
+                nex = l
+            else:
+                nex = r
+            if heap[p] < heap[nex]:
+                heap[p], heap[nex] = heap[nex], heap[p]
+                p = nex
+            else:
+                break
+
+    def build_heap(self, heap):
+        for i in range(len(heap) - 1, -1, -1):
+            self.max_heapify(heap, i, len(heap))
+
+    def heap_sort(self, nums):
+        self.build_heap(nums)
+        for i in range(len(nums) - 1, -1, -1):
+            nums[i], nums[0] = nums[0], nums[i]
+            self.max_heapify(nums, 0, i)
+
     def sortArray(self, nums: List[int]) -> List[int]:
-        self.quickSort(nums, 0, len(nums) - 1)
+        self.heap_sort(nums)
         return nums
-
-    def quickSort(self, nums: List[int], l: int, r: int) -> None:
-        def randomized_partition(nums: List[int]) -> int:
-            pivot, counter = random.randint(l, r), l
-            nums[pivot], nums[r] = nums[r], nums[pivot]
-            for i in range(l, r):
-                if nums[i] < nums[r]:
-                    nums[i], nums[counter] = nums[counter], nums[i]
-                    counter += 1
-            nums[counter], nums[r] = nums[r], nums[counter]
-            return counter
-
-        if l > r:
-            return
-        pivot = randomized_partition(nums)
-        l_upper = r_lower = pivot
-        while l_upper > 0 and nums[l_upper] == nums[l_upper - 1]:
-            l_upper -= 1
-        self.quickSort(nums, l, l_upper - 1)
-        while r_lower < r and nums[r_lower] == nums[r_lower + 1]:
-            r_lower += 1
-        self.quickSort(nums, pivot + 1, r)
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().sortArray([4, 6, 8, 5, 9])
