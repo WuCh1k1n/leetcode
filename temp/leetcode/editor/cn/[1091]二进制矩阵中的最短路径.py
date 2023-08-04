@@ -43,58 +43,55 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import heapq
+from collections import deque
+from typing import List
 
 
 class Solution(object):
-    # def shortestPathBinaryMatrix(self, grid):
-    #     """
-    #     :type grid: List[List[int]]
-    #     :rtype: int
-    #     """
+    # def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
     #     n = len(grid)
-    #     if not grid or grid[0][0] == 1 or grid[n - 1][n - 1] == 1:
+    #     if not grid or grid[0][0] or grid[-1][-1]:
     #         return -1
-    #     elif n <= 1:
+    #     elif n <= 2:
     #         return n
-    #     queue = [(0, 0, 1)]
-    #     grid[0][0] = 1
-    #     while queue:
-    #         i, j, step = queue.pop(0)
+    #
+    #     def heuristic(x, y):
+    #         return max(abs(n - 1 - x), abs(n - 1 - y))
+    #
+    #     h = []
+    #     heapq.heappush(h, (0, (0, 0, 1)))
+    #     visited = set()
+    #     while h:
+    #         _, (i, j, step) = heapq.heappop(h)
+    #         if (i, j) in visited:
+    #             continue
+    #         visited.add((i, j))
     #         for dx, dy in [(-1, -1), (1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1)]:
-    #             if i + dx == n - 1 and j + dy == n - 1:
+    #             next_i, next_j = i + dx, j + dy
+    #             if next_i == n - 1 and next_j == n - 1:
     #                 return step + 1
-    #             if 0 <= i + dx < n and 0 <= j + dy < n and grid[i + dx][j + dy] == 0:
-    #                 queue.append((i + dx, j + dy, step + 1))
-    #                 grid[i + dx][j + dy] = 1
+    #             if 0 <= next_i < n and 0 <= next_j < n and grid[next_i][next_j] == 0:
+    #                 heapq.heappush(h, (step + heuristic(next_i, next_j), (next_i, next_j, step + 1)))
     #     return -1
 
-    def shortestPathBinaryMatrix(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        n = len(grid)
-        if not grid or grid[0][0] or grid[-1][-1]:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        if grid[0][0] == 1:
             return -1
-        elif n <= 2:
-            return n
-
-        def heuristic(x, y):
-            return max(abs(n - 1 - x), abs(n - 1 - y))
-
-        h = []
-        heapq.heappush(h, (0, (0, 0, 1)))
-        visited = set()
-        while h:
-            _, (i, j, step) = heapq.heappop(h)
-            if (i, j) in visited:
-                continue
-            visited.add((i, j))
-            for dx, dy in [(-1, -1), (1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1)]:
-                next_i, next_j = i + dx, j + dy
-                if next_i == n - 1 and next_j == n - 1:
-                    return step + 1
-                if 0 <= next_i < n and 0 <= next_j < n and grid[next_i][next_j] == 0:
-                    heapq.heappush(h, (step + heuristic(next_i, next_j), (next_i, next_j, step + 1)))
+        n = len(grid)
+        dist = [[float('inf')] * n for _ in range(n)]
+        dist[0][0] = 1
+        q = deque([(0, 0)])
+        while q:
+            x, y = q.popleft()
+            if x == y == n - 1:
+                return dist[x][y]
+            for dx in range(-1, 2):
+                for dy in range(-1, 2):
+                    new_x, new_y = x + dx, y + dy
+                    if not (0 <= new_x < n and 0 <= new_y < n and grid[new_x][new_y] != 1):
+                        continue
+                    if dist[x][y] + 1 < dist[new_x][new_y]:
+                        dist[new_x][new_y] = dist[x][y] + 1
+                        q.append((new_x, new_y))
         return -1
 # leetcode submit region end(Prohibit modification and deletion)
