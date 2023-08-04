@@ -85,6 +85,7 @@ class Solution(object):
                 k += 1
             for p in range(len(temp)):
                 numbers[left + p] = temp[p]
+
         if right <= left: return
         mid = (left + right) // 2
         self.merge_sort(numbers, left, mid)
@@ -95,12 +96,28 @@ class Solution(object):
         """
         堆排序
         """
-        # heapq.heapify(numbers)
-        h = []
-        for i in range(len(numbers)):
-            heapq.heappush(h, numbers[i])
-        for i in range(len(numbers)):
-            numbers[i] = heapq.heappop(h)
+        def max_heapify(numbers, root, heap_len):
+            p = root
+            while p * 2 + 1 < heap_len:
+                l, r = p * 2 + 1, p * 2 + 2
+                if r >= heap_len or numbers[r] < numbers[l]:
+                    nxt = l
+                else:
+                    nxt = r
+                if numbers[p] < numbers[nxt]:
+                    numbers[p], numbers[nxt] = numbers[nxt], numbers[p]
+                    p = nxt
+                else:
+                    break
+
+        def build_heap(numbers):
+            for i in range(len(numbers) - 1, -1, -1):
+                max_heapify(numbers, i, len(numbers))
+
+        build_heap(numbers)
+        for i in range(len(numbers) - 1, -1, -1):
+            numbers[0], numbers[i] = numbers[i], numbers[0]
+            max_heapify(numbers, 0, i)
 
     def counting_sort(self, numbers, min_value, max_value):
         """
@@ -119,8 +136,8 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    # test = [1, 8, 7, 2, 3, 9, 4, 5]
-    test = [1, 2, 1, 3, 1, 3, 2, 1]
+    test = [1, 8, 7, 2, 3, 9, 4, 5]
+    # test = [1, 2, 1, 3, 1, 3, 2, 1]
     n = len(test)
-    Solution().merge_sort(test, 0, n - 1)
+    Solution().heap_sort(test)
     print(test)
