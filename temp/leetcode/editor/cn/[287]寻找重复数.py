@@ -51,18 +51,20 @@ from typing import List
 
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        n, i = len(nums), 0
-        while i < n:
-            t, idx = nums[i], nums[i] - 1
-            if nums[idx] == t:
-                if idx != i:
-                    return t
-                i += 1
-            else:
-                nums[i], nums[idx] = nums[idx], nums[i]
-        return -1
+        # 快慢指针，转化为 142 题
+        slow = fast = 0
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+        slow = 0
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+        return slow
 # leetcode submit region end(Prohibit modification and deletion)
 
 
 if __name__ == '__main__':
-    Solution().findDuplicate([1,3,4,2,2])
+    print(Solution().findDuplicate([1, 3, 4, 2, 2]))
