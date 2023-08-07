@@ -50,3 +50,7 @@ class Solution:
             stack.append(digit)
         return ''.join(stack[:remaining_len]).lstrip('0') or '0'
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().removeKdigits("1234567890", 9)
