@@ -45,19 +45,19 @@ class Solution(object):
         for i in range(n):
             if nums[i] <= 0:
                 nums[i] = n + 1
-
         for i in range(n):
             num = abs(nums[i])
             if num <= n:
                 nums[num - 1] = -abs(nums[num - 1])
-
         for i in range(n):
-            if nums[i] >= 0:
+            if nums[i] > 0:
                 return i + 1
-
         return n + 1
 # leetcode submit region end(Prohibit modification and deletion)
 
 
 if __name__ == '__main__':
-    Solution().firstMissingPositive([3, 4, -1, 1])
+    print(Solution().firstMissingPositive([1, 2, 0]))
+    print(Solution().firstMissingPositive([3, 4, -1, 1]))
+    print(Solution().firstMissingPositive([7, 8, 9, 11, 12]))
+    print(Solution().firstMissingPositive([1, 1]))
