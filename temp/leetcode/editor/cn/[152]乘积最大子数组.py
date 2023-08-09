@@ -19,12 +19,11 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution(object):
-    def maxProduct(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+    def maxProduct(self, nums: List[int]) -> int:
         dp = [nums[:], nums[:]]
         for i in range(1, len(nums)):
             dp[0][i] = max(nums[i], nums[i] * dp[0][i - 1], nums[i] * dp[1][i - 1])
