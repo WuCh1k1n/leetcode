@@ -21,25 +21,24 @@
 class Solution:
     def findKthNumber(self, n: int, k: int) -> int:
         # 十叉树，返回在字典序序列中[n1, n2)有多少个数字
-        def cal_steps(n, n1, n2):
-            step = 0
+        def cal_steps(n1: int, n2: int) -> int:
+            steps = 0
             while n1 <= n:
-                step += min(n2, n + 1) - n1
+                steps += min(n2, n + 1) - n1
                 n1 *= 10
                 n2 *= 10
-            return step
+            return steps
 
         cur = 1
         k -= 1
         while k > 0:
-            steps = cal_steps(n, cur, cur + 1)
+            steps = cal_steps(cur, cur + 1)
             if steps <= k:
                 k -= steps
                 cur += 1
             else:
                 k -= 1
                 cur *= 10
-
         return cur
 # leetcode submit region end(Prohibit modification and deletion)
 
