@@ -53,17 +53,17 @@ from typing import List
 
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        res, window_sum = float('inf'), 0
-        l, r = 0, 0
-        for r in range(len(nums)):
-            window_sum += nums[r]
-            while window_sum >= target and l <= r:
-                res = min(res, r - l + 1)
-                window_sum -= nums[l]
-                l += 1
+        res = float('inf')
+        start = total = 0
+        for end, num in enumerate(nums):
+            total += num
+            while total >= target:
+                total -= nums[start]
+                start += 1
+                res = min(res, end - start + 1)
         return res if res != float('inf') else 0
 # leetcode submit region end(Prohibit modification and deletion)
 
 
 if __name__ == '__main__':
-    Solution().minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
+    print(Solution().minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
