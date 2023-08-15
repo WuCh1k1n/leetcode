@@ -81,3 +81,15 @@ class FreqStack:
 # obj.push(val)
 # param_2 = obj.pop()
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    stack = FreqStack()
+    stack.push(4)
+    stack.push(7)
+    stack.push(7)
+    stack.push(7)
+    stack.pop()
+    stack.pop()
+    stack.pop()
+    stack.pop()
