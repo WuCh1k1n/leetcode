@@ -71,12 +71,12 @@ from typing import List
 
 class DLinkedNode:
 
-    def __init__(self, key=0, val=0, pre=None, nxt=None, freq=0):
+    def __init__(self, key=0, val=0):
         self.key = key
         self.val = val
-        self.pre = pre
-        self.nxt = nxt
-        self.freq = freq
+        self.pre = None
+        self.nxt = None
+        self.freq = 0
 
     def insert(self, nxt) -> None:
         nxt.pre = self
