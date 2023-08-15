@@ -66,6 +66,7 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import collections
+from typing import List
 
 
 class DLinkedNode:
@@ -84,7 +85,7 @@ class DLinkedNode:
         self.nxt = nxt
 
 
-def create_link_list() -> None:
+def create_link_list() -> List[DLinkedNode]:
     head, tail = DLinkedNode(), DLinkedNode()
     head.nxt = tail
     tail.pre = head
@@ -98,7 +99,7 @@ class LFUCache:
         self.size = 0
         self.min_freq = 0
         self.cache = dict()
-        self.freq_map = collections.defaultdict(create_link_list)
+        self.freqs = collections.defaultdict(create_link_list)
 
     def get(self, key: int) -> int:
         if key not in self.cache:
@@ -116,7 +117,7 @@ class LFUCache:
             self.cache[key] = node
             self.size += 1
         if self.size > self.capacity:
-            deleted = self.delete(self.freq_map[self.min_freq][0].nxt)
+            deleted = self.delete(self.freqs[self.min_freq][0].nxt)
             del self.cache[deleted.key]
             self.size -= 1
         self.increase(node)
@@ -124,11 +125,11 @@ class LFUCache:
     def increase(self, node: DLinkedNode) -> None:
         self.delete(node)
         node.freq += 1
-        self.freq_map[node.freq][-1].pre.insert(node)
+        self.freqs[node.freq][-1].pre.insert(node)
         if node.freq == 1:
             self.min_freq = 1
         if self.min_freq == node.freq - 1:
-            head, tail = self.freq_map[self.min_freq]
+            head, tail = self.freqs[self.min_freq]
             if head.nxt == tail:
                 self.min_freq = node.freq
 
@@ -136,10 +137,9 @@ class LFUCache:
         if node.pre and node.nxt:
             node.pre.nxt = node.nxt
             node.nxt.pre = node.pre
-            if node.pre is self.freq_map[node.freq][0] and node.nxt is self.freq_map[node.freq][-1]:
-                del self.freq_map[node.freq]
+            if node.pre is self.freqs[node.freq][0] and node.nxt is self.freqs[node.freq][-1]:
+                del self.freqs[node.freq]
         return node
-
 # Your LFUCache object will be instantiated and called as such:
 # obj = LFUCache(capacity)
 # param_1 = obj.get(key)
