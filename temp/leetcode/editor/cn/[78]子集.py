@@ -37,17 +37,6 @@ class Solution(object):
         for num in nums:
             ans += [[num] + subset for subset in ans]
         return ans
-
-    # def subsets(self, nums: List[int]) -> List[List[int]]:
-    #     def recur(candidates: List[int], path: List[int]) -> None:
-    #         res.append(path)
-    #         if not candidates:
-    #             return
-    #         for i in range(len(candidates)):
-    #             recur(candidates[i + 1:], path + [candidates[i]])
-    #     res = []
-    #     recur(nums, [])
-    #     return res
 # leetcode submit region end(Prohibit modification and deletion)
 
 
