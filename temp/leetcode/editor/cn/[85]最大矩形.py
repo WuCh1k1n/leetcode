@@ -54,32 +54,26 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution(object):
-    def maximalRectangle(self, matrix):
-        """
-        :type matrix: List[List[str]]
-        :rtype: int
-        """
-        rows = len(matrix)
-        if rows == 0: return 0
-        cols = len(matrix[0])
-
-        ans = 0
-        dp = [[0] * cols for _ in range(rows)]
-        for i in range(rows):
-            for j in range(cols):
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
                 if matrix[i][j] == '1':
-                    dp[i][j] = 1 + dp[i][j - 1]
-
-        for i in range(rows - 1, -1, -1):
-            for j in range(cols):
+                    dp[i][j] = 1 + dp[i][j - 1] if j > 0 else 1
+        res = 0
+        for i in range(m - 1, -1, -1):
+            for j in range(n):
                 w, h = dp[i][j], 1
                 k = i
                 while k >= 0 and matrix[k][j] == '1':
-                    w = min(dp[k][j], w)
-                    ans = max(ans, w * h)
+                    w = min(w, dp[k][j])
+                    res = max(res, w * h)
                     h += 1
                     k -= 1
-
-        return ans
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
