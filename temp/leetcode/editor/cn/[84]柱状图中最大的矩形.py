@@ -34,7 +34,7 @@ class Solution(object):
         left, right = [0] * n, [n] * n
         mono_stack = list()
         for i in range(n):
-            while mono_stack and heights[mono_stack[-1]] >= heights[i]:
+            while mono_stack and heights[mono_stack[-1]] > heights[i]:
                 right[mono_stack[-1]] = i
                 mono_stack.pop()
             left[i] = mono_stack[-1] if mono_stack else -1
