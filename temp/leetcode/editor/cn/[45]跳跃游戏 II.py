@@ -26,12 +26,12 @@ from typing import List
 class Solution(object):
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
-        maxPos, end, step = 0, 0, 0
+        max_pos, end, step = 0, 0, 0
         for i in range(n - 1):
-            if i <= maxPos:
-                maxPos = max(maxPos, i + nums[i])
+            if i <= max_pos:
+                max_pos = max(max_pos, i + nums[i])
                 if i == end:
-                    end = maxPos
+                    end = max_pos
                     step += 1
         return step
 # leetcode submit region end(Prohibit modification and deletion)
