@@ -20,36 +20,12 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class Solution(object):
-    # def threeSum(self, nums):
-    #     """
-    #     :type nums: List[int]
-    #     :rtype: List[List[int]]
-    #     """
-    #     nums.sort()
-    #     res, k = [], 0
-    #     for k in range(len(nums) - 2):
-    #         if nums[k] > 0: break
-    #         if k > 0 and nums[k] == nums[k - 1]: continue
-    #         i, j = k + 1, len(nums) - 1
-    #         while i < j:
-    #             s = nums[i] + nums[j] + nums[k]
-    #             if s < 0:
-    #                 i += 1
-    #                 while i < j and nums[i] == nums[i - 1]: i += 1
-    #             elif s > 0:
-    #                 j -= 1
-    #                 while i < j and nums[j] == nums[j + 1]: j -= 1
-    #             else:
-    #                 res.append([nums[k], nums[i], nums[j]])
-    #                 i += 1
-    #                 j -= 1
-    #                 while i < j and nums[i] == nums[i - 1]: i += 1
-    #                 while i < j and nums[j] == nums[j + 1]: j -= 1
-    #     return res
+from typing import List
 
+
+class Solution(object):
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = list()
+        ret = []
         nums.sort()
         for k in range(len(nums) - 2):
             if nums[k] > 0:
@@ -58,18 +34,18 @@ class Solution(object):
                 continue
             i, j = k + 1, len(nums) - 1
             while i < j:
-                t = nums[i] + nums[j] + nums[k]
-                if t == 0:
-                    res.append([nums[k], nums[i], nums[j]])
+                _sum = nums[i] + nums[j] + nums[k]
+                if _sum == 0:
+                    ret.append([nums[k], nums[i], nums[j]])
                     i += 1
                     j -= 1
                     while i < j and nums[i] == nums[i - 1]: i += 1
                     while i < j and nums[j] == nums[j + 1]: j -= 1
-                elif t < 0:
+                elif _sum < 0:
                     i += 1
                     while i < j and nums[i] == nums[i - 1]: i += 1
                 else:
                     j -= 1
                     while i < j and nums[j] == nums[j + 1]: j -= 1
-        return res
+        return ret
 # leetcode submit region end(Prohibit modification and deletion)
