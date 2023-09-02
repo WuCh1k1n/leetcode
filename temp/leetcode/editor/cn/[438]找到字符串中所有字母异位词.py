@@ -47,20 +47,20 @@ from typing import List
 
 
 class Solution:
-    def findAnagrams(self, string: str, pattern: str) -> List[int]:
-        ans = []
-        string_cnt = Counter(string[:len(pattern)])
-        pattern_cnt = Counter(pattern)
-        if string_cnt == pattern_cnt:
-            ans.append(0)
-        for i, ch in enumerate(string[len(pattern):], len(pattern)):
-            string_cnt[ch] += 1
-            string_cnt[string[i - len(pattern)]] -= 1
-            if string_cnt[string[i - len(pattern)]] == 0:
-                del string_cnt[string[i - len(pattern)]]
-            if string_cnt == pattern_cnt:
-                ans.append(i - len(pattern) + 1)
-        return ans
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        ret = []
+        counter_s, counter_p = Counter(s[:len(p)]), Counter(p)
+        if counter_s == counter_p:
+            ret.append(0)
+        for i, ch in enumerate(s[len(p):], len(p)):
+            counter_s[ch] += 1
+            removed = s[i - len(p)]
+            counter_s[removed] -= 1
+            if counter_s[removed] == 0:
+                del counter_s[removed]
+            if counter_s == counter_p:
+                ret.append(i - len(p) + 1)
+        return ret
 # leetcode submit region end(Prohibit modification and deletion)
 
 
