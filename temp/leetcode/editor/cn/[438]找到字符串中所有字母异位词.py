@@ -53,7 +53,6 @@ class Solution:
         pattern_cnt = Counter(pattern)
         if string_cnt == pattern_cnt:
             ans.append(0)
-
         for i, ch in enumerate(string[len(pattern):], len(pattern)):
             string_cnt[ch] += 1
             string_cnt[string[i - len(pattern)]] -= 1
