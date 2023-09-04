@@ -42,15 +42,27 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        ans = 0
+    def maxProfit(self, prices: List[int]) -> int:
+        # ans = 0
+        # for i in range(1, len(prices)):
+        #     if prices[i] > prices[i - 1]:
+        #         ans += prices[i] - prices[i - 1]
+        # return ans
+
+        ret = 0
+        min_price = prices[0]
         for i in range(1, len(prices)):
-            if prices[i] > prices[i - 1]:
-                ans += prices[i] - prices[i - 1]
-        return ans
+            if prices[i] - min_price > 0:
+                ret += prices[i] - min_price
+                min_price = prices[i]
+            min_price = min(min_price, prices[i])
+        return ret
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().maxProfit([7, 1, 5, 3, 6, 4]))
