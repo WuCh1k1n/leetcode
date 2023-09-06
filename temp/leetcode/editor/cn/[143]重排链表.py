@@ -39,10 +39,12 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
 class Solution(object):
     def reorderList(self, head: ListNode) -> None:
         nodes = list()
@@ -59,3 +61,12 @@ class Solution(object):
                 r -= 1
         nodes[r].next = None
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    four = ListNode(4, None)
+    three = ListNode(3, four)
+    two = ListNode(2, three)
+    head = ListNode(1, two)
+    Solution().reorderList(head)
+    print(head)
