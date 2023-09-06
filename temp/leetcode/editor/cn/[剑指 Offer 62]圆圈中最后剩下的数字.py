@@ -33,8 +33,12 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lastRemaining(self, n: int, m: int) -> int:
-        x = 0
-        for i in range(2, n + 1):
-            x = (x + m) % i
-        return x
+        if n == 0:
+            return 0
+        x = self.lastRemaining(n - 1, m)
+        return (m + x) % n
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().lastRemaining(5, 3))
