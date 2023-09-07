@@ -48,13 +48,22 @@
 """
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import heapq
+from typing import List
+
+
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         n = len(matrix)
-        nums = list()
-        for i in range(n):
-            for j in range(n):
-                nums.append(matrix[i][j])
-        nums.sort()
-        return nums[k - 1]
+        pq = [(matrix[i][0], i, 0) for i in range(n)]
+        heapq.heapify(pq)
+        for _ in range(k - 1):
+            _, x, y = heapq.heappop(pq)
+            if y != n - 1:
+                heapq.heappush(pq, (matrix[x][y + 1], x, y + 1))
+        return heapq.heappop(pq)[0]
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().kthSmallest([[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8)
