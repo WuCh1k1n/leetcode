@@ -42,4 +42,4 @@ class Solution:
 
 
 if __name__ == "__main__":
-    Solution().multiply("123", "456")
+    print(Solution().multiply("123", "456"))
