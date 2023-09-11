@@ -59,26 +59,27 @@ from typing import List
 
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
-        l = len(s)
-        if l > 12 or l < 4:
+        n = len(s)
+        if n < 4 or n > 12:
             return []
-
-        res = []
-        for i in range(1, min(4, l - 2)):
-            for j in range(i + 1, min(i + 4, l - 1)):
-                for k in range(j + 1, min(j + 4, l)):
-                    if l - k > 3:
+        ret = []
+        for i in range(1, min(4, n - 2)):
+            for j in range(i + 1, min(i + 4, n - 1)):
+                for k in range(j + 1, min(j + 4, n)):
+                    if n - k > 3:
                         continue
-                    n = [s[:i], s[i:j], s[j:k], s[k:]]
+                    nums = [s[:i], s[i:j], s[j:k], s[k:]]
                     flag = False
-                    for c in n:
-                        if c[0] == '0' and c != '0':
+                    for num in nums:
+                        if (num[0] == '0' and num != '0') or not 0 <= int(num) <= 255:
                             flag = True
                             break
                     if flag:
                         continue
-                    a, b, c, d = map(int, n)
-                    if 0 <= a <= 255 and 0 <= b <= 255 and 0 <= c <= 255 and 0 <= d <= 255:
-                        res.append(str(a) + '.' + str(b) + '.' + str(c) + '.' + str(d))
-        return res
+                    ret.append('.'.join(nums))
+        return ret
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().restoreIpAddresses("25525511135"))
