@@ -1,5 +1,5 @@
-from typing import List
-from collections import Counter
+from typing import List, Optional
+from collections import Counter, deque
 
 
 class Solution:
@@ -32,12 +32,37 @@ class Solution:
             j += 1
         return res
 
+    # 256
+    def minCostOfPaintHouse(self, costs: List[List[int]]) -> int:
+        n = len(costs)
+        for i in range(1, n):
+            costs[i][0] += min(costs[i - 1][1], costs[i - 1][2])
+            costs[i][1] += min(costs[i - 1][0], costs[i - 1][2])
+            costs[i][2] += min(costs[i - 1][0], costs[i - 1][1])
+        return min(costs[-1])
+
+    """
+    # Definition for a Node.
+    class TreeNode(object):
+        def __init__(self, val=None, children=None):
+            self.val = val
+            self.children = children if children is not None else []
+    """
+    # 1490
+    def mergeTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+        mapping = {}
+        q = deque([root])
+        while q:
+            node = q.popleft()
+            mapping[node] = TreeNode(node.val)
+            for child in node.children:
+                mapping[child] = TreeNode(child.val)
+                mapping[node].children.append(mapping[child])
+                q.append(child)
+        return mapping[root]
+
 
 if __name__ == '__main__':
-    # print(Solution().countDistinctElement([4, 5, 6, 9, 7, 6, 5, 1]))
-    # print(Solution().countDistinctElement([4, 5, 6, 9, 7, 8, 5, 1]))
-    # print(Solution().countDistinctElement([4, 5, 6, 9, 7, 8, 3, 1]))
-
-    print(Solution().lengthOfLongestSubstringTwoDistinct('eceba'))
-    print(Solution().lengthOfLongestSubstringTwoDistinct('ccaabbb'))
-    print(Solution().lengthOfLongestSubstringTwoDistinct('cacbbb'))
+    print(Solution().minCostOfPaintHouse([[17, 2, 17], [16, 16, 5], [14, 3, 19]]))
