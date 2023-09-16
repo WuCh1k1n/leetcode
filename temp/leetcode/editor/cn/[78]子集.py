@@ -35,10 +35,10 @@ class Solution(object):
     def subsets(self, nums: List[int]) -> List[List[int]]:
         ans = [[]]
         for num in nums:
-            ans += [[num] + subset for subset in ans]
+            ans += [subset + [num] for subset in ans]
         return ans
 # leetcode submit region end(Prohibit modification and deletion)
 
 
 if __name__ == '__main__':
-    Solution().subsets([1, 2, 3])
+    print(Solution().subsets([1, 2, 3]))
