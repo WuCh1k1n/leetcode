@@ -40,12 +40,12 @@ from typing import List
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
         res = [[] for _ in range(numRows)]
-        for i in range(1, numRows + 1):
-            for j in range(i):
-                if j == 0 or j == i - 1:
-                    res[i - 1].append(1)
+        for i in range(numRows):
+            for j in range(i + 1):
+                if j == 0 or j == i:
+                    res[i].append(1)
                 else:
-                    res[i - 1].append(res[i - 2][j - 1] + res[i - 2][j])
+                    res[i].append(res[i - 1][j - 1] + res[i - 1][j])
         return res
 # leetcode submit region end(Prohibit modification and deletion)
 
