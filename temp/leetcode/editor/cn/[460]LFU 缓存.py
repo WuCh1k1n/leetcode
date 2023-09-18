@@ -140,7 +140,7 @@ class LFUCache:
             if node.pre is self.freqs[node.freq][0] and node.nxt is self.freqs[node.freq][-1]:
                 del self.freqs[node.freq]
         return node
-    
+
 # Your LFUCache object will be instantiated and called as such:
 # obj = LFUCache(capacity)
 # param_1 = obj.get(key)
