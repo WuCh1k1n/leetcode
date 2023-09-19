@@ -33,11 +33,7 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution(object):
-    def longestCommonPrefix(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: str
-        """
+    def longestCommonPrefix(self, strs: str) -> str:
         if not strs:
             return ''
         for i in range(len(strs[0])):
