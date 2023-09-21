@@ -43,3 +43,7 @@ class Solution:
         digitIndex = index % d
         return num // 10 ** (d - digitIndex - 1) % 10
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().findNthDigit(11)
