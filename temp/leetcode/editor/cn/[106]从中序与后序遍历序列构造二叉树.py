@@ -21,6 +21,9 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import Optional, List
+
+
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -28,13 +31,9 @@
 #         self.left = None
 #         self.right = None
 
+
 class Solution(object):
-    def buildTree(self, inorder, postorder):
-        """
-        :type inorder: List[int]
-        :type postorder: List[int]
-        :rtype: TreeNode
-        """
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         def myBuildTree(inorder_left, inorder_right, postorder_left, postorder_right):
             if postorder_left > postorder_right:
                 return None
@@ -49,3 +48,7 @@ class Solution(object):
         index = {element: i for i, element in enumerate(inorder)}
         return myBuildTree(0, n - 1, 0, n - 1)
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().buildTree([9, 3, 15, 20, 7], [9, 15, 7, 20, 3])
