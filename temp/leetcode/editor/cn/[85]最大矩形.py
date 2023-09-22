@@ -77,3 +77,7 @@ class Solution(object):
                     k -= 1
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().maximalRectangle([["1"]]))
