@@ -53,15 +53,39 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from typing import Optional
+
+
+class DLinkedNode:
+    def __init__(self, val=0, pre=None, next=None):
+        self.val = val
+        self.pre = pre
+        self.next = next
+
+
 class Solution:
     def findTargetNode(self, root: Optional[TreeNode], cnt: int) -> int:
         def inorder(node: Optional[TreeNode]) -> None:
+            nonlocal pre
             if not node:
                 return
             inorder(node.left)
             nodes.append(node.val)
+            cur = DLinkedNode(node.val)
+            pre.next = cur
+            cur.pre = pre
+            pre = cur
             inorder(node.right)
+
+        def print_linked_list(head: Optional[DLinkedNode]) -> None:
+            if not head:
+                return
+            print(head.val)
+            print_linked_list(head.next)
+
         nodes = []
+        pre = dummy = DLinkedNode
         inorder(root)
+        print_linked_list(dummy.next)
         return nodes[-cnt]
 # leetcode submit region end(Prohibit modification and deletion)
