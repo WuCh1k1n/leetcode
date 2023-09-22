@@ -59,43 +59,22 @@ from typing import List
 
 
 class Solution:
-    # def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-    #     res = []
-    #     candidates.sort()
-    #     if candidates[0] > target:
-    #         return res
-    #     if candidates[0] == target:
-    #         res.append([candidates[0]])
-    #         return res
-    #
-    #     def backtrace(candidates: List[int], target: int, path: List[int]) -> None:
-    #         if target <= 0:
-    #             if target == 0:
-    #                 res.append(path)
-    #             return
-    #         for i, num in enumerate(candidates):
-    #             backtrace(candidates[i:], target - num, path + [num])
-    #
-    #     backtrace(candidates, target, [])
-    #     return res
-
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def backtrack(nums: List[int], remain: int, path: List[int]) -> None:
+        def dfs(nums: List[int], path: List[int], remain: int) -> None:
             if remain <= 0:
                 if remain == 0:
                     res.append(path)
                 return
-            for i, num in enumerate(nums):
-                backtrack(nums[i:], remain - num, path + [num])
-
-        res = list()
+            for i in range(len(nums)):
+                dfs(nums[i:], path + [nums[i]], remain - nums[i])
+        res = []
         candidates.sort()
-        first = candidates[0]
-        if first > target:
+        if candidates[0] > target:
             return res
-        if first == target:
-            res.append(first)
-            return res
-        backtrack(candidates, target, [])
+        dfs(candidates, [], target)
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().combinationSum([2, 3, 6, 7], 7))
