@@ -52,6 +52,21 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from collections import defaultdict
+from typing import Optional
+
+
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
+        def dfs(node: Optional[TreeNode]) -> None:
+            if not node:
+                return
+            dfs(node.left)
+            dfs(node.right)
+            f[node] = node.val + g[node.left] + g[node.right]
+            g[node] = max(f[node.left], g[node.left]) + max(f[node.right], g[node.right])
+        f = defaultdict(int)
+        g = defaultdict(int)
+        dfs(root)
+        return max(f[root], g[root])
 # leetcode submit region end(Prohibit modification and deletion)
