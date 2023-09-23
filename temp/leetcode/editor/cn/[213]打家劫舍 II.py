@@ -51,10 +51,7 @@ class Solution(object):
             for num in nums:
                 cur, pre = max(pre + num, cur), cur
             return cur
-
         return max(my_rob(nums[:-1]), my_rob(nums[1:])) if len(nums) != 1 else nums[0]
-
-
 # leetcode submit region end(Prohibit modification and deletion)
 
 
