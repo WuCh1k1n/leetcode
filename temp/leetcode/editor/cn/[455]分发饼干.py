@@ -56,3 +56,7 @@ class Solution(object):
             j += 1
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().findContentChildren([10, 9, 8, 7], [5, 6, 7, 8])
