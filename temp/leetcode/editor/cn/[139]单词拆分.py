@@ -43,20 +43,22 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        def dfs(start):
+        def dfs(start: int) -> bool:
             if start == n:
                 return True
             if memo[start] is not None:
                 return memo[start]
-            for i in range(start + 1, n + 1):
-                if s[start:i] in wordDict and dfs(i):
+            for word in wordDict:
+                if s[start:start + len(word)] == word and dfs(start + len(word)):
                     memo[start] = True
                     return True
             memo[start] = False
             return False
-
         n = len(s)
         memo = [None] * n
         return dfs(0)
