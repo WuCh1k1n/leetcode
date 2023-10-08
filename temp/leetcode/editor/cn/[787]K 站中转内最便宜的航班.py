@@ -51,6 +51,9 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
         dp = [[float('inf')] * n for _ in range(k + 2)]
@@ -61,3 +64,7 @@ class Solution:
         res = min(dp[t][dst] for t in range(1, k + 2))
         return res if res != float('inf') else -1
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().findCheapestPrice(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 0))
