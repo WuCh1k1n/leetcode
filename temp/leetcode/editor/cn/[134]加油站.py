@@ -49,15 +49,21 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        g, c = len(gas), len(cost)
-        diff = [gas[k] - cost[k] for k in range(g)]
+        n = len(gas)
+        diff = [gas[i] - cost[i] for i in range(n)]
         stack = [diff[0]]
-        for i in range(1, g):
-            stack.append(diff[i] + stack[-1])
+        for i in range(1, n):
+            stack.append(stack[-1] + diff[i])
         if stack[-1] < 0:
             return -1
-        return 0 if stack.index(min(stack)) == g - 1 else stack.index(min(stack)) + 1
-
+        return (stack.index(min(stack)) + 1) % n
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    Solution().canCompleteCircuit([1, 2, 3, 4, 5], [3, 4, 5, 1, 2])
