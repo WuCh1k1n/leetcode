@@ -20,7 +20,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findKthNumber(self, n: int, k: int) -> int:
-        # 十叉树，返回在字典序序列中[n1, n2)有多少个数字
+        # 十叉树，返回在字典序序列中(n1, n2]有多少个数字
         def cal_steps(n1: int, n2: int) -> int:
             steps = 0
             while n1 <= n:
@@ -44,4 +44,5 @@ class Solution:
 
 
 if __name__ == '__main__':
-    Solution().findKthNumber(13, 5)
+    print(Solution().findKthNumber(13, 5))
+    print(Solution().findKthNumber(23, 15))
