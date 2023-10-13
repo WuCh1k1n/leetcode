@@ -52,11 +52,11 @@ from collections import deque
 
 class Solution:
     def calculate(self, s: str) -> int:
-        res, stack = 0, list()
+        stack = []
         i, n = 0, len(s)
         num, pre_sign = 0, '+'
         for i in range(n):
-            if s[i] != ' ' and s[i].isdigit():
+            if s[i].isdigit():
                 num = num * 10 + ord(s[i]) - ord('0')
             if s[i] in '+-*/' or i == n - 1:
                 if pre_sign == '+':
@@ -74,3 +74,7 @@ class Solution:
 
 if __name__ == '__main__':
     print(Solution().calculate('3+2*2'))
+    print(Solution().calculate(' 3/2'))
+    print(Solution().calculate('42'))
+    print(Solution().calculate('42+88'))
+    print(Solution().calculate('14-3/2'))
