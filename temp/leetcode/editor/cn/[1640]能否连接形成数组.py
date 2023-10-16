@@ -46,8 +46,10 @@ pieces 中的数组以形成 arr 。但是，不允许 对每个数组 pieces[i]
 
 """
 
-
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
         index = {p[0]: i for i, p in enumerate(pieces)}
@@ -61,3 +63,8 @@ class Solution:
             i += len(p)
         return True
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    # print(Solution().canFormArray([91, 4, 64, 78], [[78], [4, 64], [91]]))
+    print(Solution().canFormArray([49, 18, 16], [[16, 18, 49]]))
