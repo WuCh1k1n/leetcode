@@ -2,6 +2,13 @@ from typing import List, Optional
 from collections import Counter, deque
 
 
+# Definition for a Node.
+class TreeNode(object):
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children if children is not None else []
+
+
 class Solution:
     def countDistinctElement(self, nums: List[int]) -> int:
         res = 0
@@ -18,7 +25,8 @@ class Solution:
         return res
 
     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
-        res, n = 0, len(s)
+        res = 0
+        n = len(s)
         counter = Counter()
         i = j = 0
         while j < n:
@@ -41,13 +49,6 @@ class Solution:
             costs[i][2] += min(costs[i - 1][0], costs[i - 1][1])
         return min(costs[-1])
 
-    """
-    # Definition for a Node.
-    class TreeNode(object):
-        def __init__(self, val=None, children=None):
-            self.val = val
-            self.children = children if children is not None else []
-    """
     # 1490
     def mergeTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
@@ -65,4 +66,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    print(Solution().minCostOfPaintHouse([[17, 2, 17], [16, 16, 5], [14, 3, 19]]))
+    print(Solution().lengthOfLongestSubstringTwoDistinct("eceba"))
+    print(Solution().lengthOfLongestSubstringTwoDistinct("ccaabbb"))
+    # print(Solution().minCostOfPaintHouse([[17, 2, 17], [16, 16, 5], [14, 3, 19]]))
