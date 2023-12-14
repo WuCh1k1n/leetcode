@@ -37,6 +37,9 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
+
+
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         def get(i: int) -> int:
@@ -57,3 +60,7 @@ class Solution:
                 r = mid - 1
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().findPeakElement([0, 5, 1, 2, 3, 4]))
